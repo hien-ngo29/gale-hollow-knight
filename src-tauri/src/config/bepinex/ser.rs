@@ -3,7 +3,7 @@ use std::{
     io::{self, Write},
 };
 
-use super::{Entry, EntryKind, File, Metadata, Num, Section, Value, de::FLAGS_MESSAGE};
+use super::{de::FLAGS_MESSAGE, Entry, EntryKind, File, Metadata, Num, Section, Value};
 
 use serde::Serialize;
 

@@ -87,10 +87,10 @@
 				<svelte:element
 					this={mod.type === ModType.Remote ? 'a' : 'div'}
 					class={[
-						'block pr-4 text-left text-3xl font-bold text-white xl:text-4xl',
+						'pr-4 text-left text-3xl font-bold wrap-break-word text-white xl:text-4xl',
 						mod.type === ModType.Remote && 'hover:underline'
 					]}
-					href={communityUrl(mod.backend, mod.author ?? '', mod.name)}
+					href={communityUrl(mod.backend, '' + mod.author, mod.name)}
 					target="_blank">{formatModName(mod.name)}</svelte:element
 				>
 
@@ -220,7 +220,7 @@
 
 	{#if mod.dependencies !== null && mod.dependencies.length > 0}
 		{@render button(
-			'mdi:dependency',
+			'material-symbols:network-node',
 			`${m.modDetails_dependencies()} (${mod.dependencies.length})`,
 			() => (dependenciesOpen = true)
 		)}
@@ -229,7 +229,7 @@
 	{@render children?.()}
 </div>
 
-<Dialog title={m.modDetails_dependencies_title({ name: mod.name })} bind:open={dependenciesOpen}>
+<Dialog title="Dependencies of {mod.name}" bind:open={dependenciesOpen}>
 	{#if mod.dependencies}
 		<ModCardList
 			mods={mod.dependencies.map((fullName) => ({ fullName, backend: mod.backend }))}

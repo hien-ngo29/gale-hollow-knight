@@ -1,24 +1,5 @@
 # Changelog
 
-## Unreleased
-
-### Added
-
-- Context menu options to hide mods from the mod list
-  - This does not prevent them from being installed or shown in the profile mod list
-  - Hidden mods can be unhidden from game-specific manager settings
-
-### Changed
-
-- Made error message more informative when a profile code couldn't be exported due to upload size limits
-- Small UI edits
-
-### Fixed
-
-- Thunderstore mod author name linking to an invalid URL
-- Custom arguments being copied without quotes or escapes on Windows
-- Minor localization fixes
-
 ## 1.18.0 (2026-07-13)
 
 ### Added

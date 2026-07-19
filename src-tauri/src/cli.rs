@@ -1,14 +1,14 @@
 use std::{path::PathBuf, process, time::Duration};
 
 use clap::Parser;
-use eyre::{Context, OptionExt, Result, eyre};
+use eyre::{eyre, Context, OptionExt, Result};
 use tauri::AppHandle;
 use tracing::{debug, error, info};
 
 use crate::{
     game::{self},
     logger,
-    profile::{self, ModManager, install::InstallOptions},
+    profile::{self, install::InstallOptions, ModManager},
     state::ManagerExt,
 };
 

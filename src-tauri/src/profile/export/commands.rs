@@ -65,10 +65,7 @@ pub fn get_pack_args(app: AppHandle) -> Result<Option<ModpackInfo>> {
 
     let hexium_exclusive = modpack::refresh_args(profile, &*app.lock_thunderstore(), game);
 
-    Ok(profile.modpack.clone().map(|args| ModpackInfo {
-        args,
-        hexium_exclusive,
-    }))
+    Ok(profile.modpack.clone().map(|args| ModpackInfo { args, hexium_exclusive }))
 }
 
 #[command]

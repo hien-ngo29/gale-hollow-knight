@@ -1,7 +1,7 @@
 use eyre::anyhow;
 use tauri::{AppHandle, command};
 
-use super::{Backend, models::FrontendMod, query::QueryModsArgs};
+use super::{models::FrontendMod, query::{self, QueryModsArgs}, Backend};
 use crate::{
     logger,
     state::ManagerExt,
@@ -14,10 +14,8 @@ pub fn query_thunderstore(args: QueryModsArgs, app: AppHandle) -> Vec<FrontendMo
     let manager = app.lock_manager();
     let mut thunderstore = app.lock_thunderstore();
 
-    // return some results immediately...
-    let result = thunderstore.query_mods(&args, &manager);
+    let result = query::query_frontend_mods(&args, thunderstore.latest(), manager.active_profile());
 
-    // ...then if we still have packages to fetch, continue fetching and returning new results in the background
     if !thunderstore.packages_fetched(&app, manager.active_game) {
         thunderstore.current_query = Some(args);
     }

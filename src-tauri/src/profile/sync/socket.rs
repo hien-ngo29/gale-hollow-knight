@@ -2,8 +2,8 @@ use std::sync::atomic::{AtomicBool, Ordering};
 
 use eyre::Result;
 use futures_util::{
-    SinkExt, StreamExt,
     stream::{SplitSink, SplitStream},
+    SinkExt, StreamExt,
 };
 use reqwest::Version;
 use reqwest_websocket::{RequestBuilderExt, WebSocket};

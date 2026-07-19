@@ -1,8 +1,8 @@
-use tauri::{AppHandle, command};
+use tauri::{command, AppHandle};
 
 use crate::{state::ManagerExt, util::cmd::Result};
 
-use super::{ListedSyncProfile, SyncProfileMetadata, auth};
+use super::{auth, ListedSyncProfile, SyncProfileMetadata};
 
 #[command]
 pub async fn read_sync_profile(id: String, app: AppHandle) -> Result<SyncProfileMetadata> {

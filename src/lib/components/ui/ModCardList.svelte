@@ -26,3 +26,9 @@
 		</ModCard>
 	{/each}
 </div>
+
+<style>
+	.list {
+		grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+	}
+</style>

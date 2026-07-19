@@ -4,9 +4,9 @@ use std::{
     time::Duration,
 };
 
-use base64::{Engine, prelude::BASE64_URL_SAFE_NO_PAD};
+use base64::{prelude::BASE64_URL_SAFE_NO_PAD, Engine};
 use chrono::{DateTime, Utc};
-use eyre::{Context, OptionExt, Result, eyre};
+use eyre::{eyre, Context, OptionExt, Result};
 use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Manager, Url};
 use tokio::sync::broadcast;

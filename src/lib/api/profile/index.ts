@@ -7,8 +7,7 @@ import type {
 	ManagedGameInfo,
 	QueryModsArgs,
 	ModId,
-	MarkdownType,
-	Dependant
+	MarkdownType
 } from '$lib/types';
 
 export * as export from './export';
@@ -49,5 +48,3 @@ export const setCustomArgs = (customArgs: string) => invoke('set_custom_args', {
 export const setProfilePath = (profileId: number, newPath: string) =>
 	invoke('set_profile_path', { profileId, newPath });
 export const forgetProfile = (profileId: number) => invoke('forget_profile', { profileId });
-export const toggleHiddenMod = (uuid: string) => invoke('toggle_hidden_mod', { uuid });
-export const getHiddenMods = () => invoke<Dependant[]>('get_hidden_mods');

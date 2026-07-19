@@ -4,7 +4,7 @@ use std::{
     str::{self, FromStr},
 };
 
-use eyre::{Context, OptionExt, Result, anyhow, bail, ensure};
+use eyre::{anyhow, bail, ensure, Context, OptionExt, Result};
 use itertools::Itertools;
 use serde::Serialize;
 

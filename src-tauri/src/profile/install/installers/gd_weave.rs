@@ -4,12 +4,12 @@ use std::{
     path::{self, PathBuf},
 };
 
-use eyre::{Result, bail};
+use eyre::{bail, Result};
 
 use super::{PackageInstaller, PackageZip};
 use crate::profile::{
-    Profile, ProfileMod,
     install::{self},
+    Profile, ProfileMod,
 };
 
 pub struct GDWeaveModInstaller;

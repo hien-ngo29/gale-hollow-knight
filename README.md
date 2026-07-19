@@ -45,25 +45,20 @@ A modern and lightweight mod manager for [Thunderstore](https://thunderstore.io)
     <b>Scoop</b>
   </summary>
   
-  Gale is available as a [Scoop](https://scoop.sh/) app in the official [games bucket](https://github.com/Calinou/scoop-games):
+  Gale is available as an independently hosted [Scoop](https://scoop.sh/) app:
 
 ```powershell
-scoop bucket add games
-scoop install gale
+scoop install https://raw.githubusercontent.com/Kesomannen/scoop-games/refs/heads/master/bucket/gale.json
 ```
 
-</details>
-
-<details>
-  <summary>
-    <b>WinGet</b>
-  </summary>
-  
-  Gale is available as a [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/) application:
+To update, run:
 
 ```powershell
-winget install Kesomannen.Gale
+scoop uninstall gale
+scoop install https://raw.githubusercontent.com/Kesomannen/scoop-games/refs/heads/master/bucket/gale.json
 ```
+
+> Efforts are in progress to submit the app to the [Scoop games bucket](https://github.com/Calinou/scoop-games/pull/1756) to make installation and updating more straightforward.
 
 </details>
 
@@ -87,10 +82,6 @@ winget install Kesomannen.Gale
   ```bash
   yay -S gale-bin
   ```
-
-> [!WARN]
-> **Do not** use the in-app updater, instead update the app via the AUR.
-
 </details>
 
 <details>
@@ -103,8 +94,6 @@ Gale is available as a .deb package in [Releases](https://github.com/Kesomannen/
 ```bash
 sudo dpkg -i Gale_X.X.X_x64_en-US.deb
 ```
-
-Updating Gale can be done from the in-app updater UI.
 
 </details>
 
@@ -119,8 +108,6 @@ Gale is available as a .rpm package in [Releases](https://github.com/Kesomannen/
 sudo rpm -i Gale_X.X.X_x64_en-US.rpm
 ```
 
-Updating Gale can be done from the in-app updater UI.
-
 </details>
 
 <details>
@@ -133,8 +120,6 @@ Gale is available as an independently hosted Flatpak package:
 ```bash
 flatpak install https://kesomannen.com/com.kesomannen.gale.flatpakref
 ```
-
-Updating the app can be done with `flatpak update com.kesomannen.gale`.
 
 </details>
 
@@ -149,8 +134,6 @@ Distribution-agnostic AppImages are available in [Releases](https://github.com/K
 chmod +x Gale_X.X.X_x64_en-US.AppImage
 ./Gale_X.X.X_x64_en-US.AppImage
 ```
-
-Updating Gale can be done from the in-app updater UI.
 
 </details>
 

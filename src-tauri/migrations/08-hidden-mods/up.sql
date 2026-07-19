@@ -1,1 +1,0 @@
-ALTER TABLE manager ADD COLUMN hidden_mods JSON NOT NULL DEFAULT '[]';

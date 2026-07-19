@@ -1,9 +1,9 @@
 use std::path::Path;
 
-use eyre::{Context, eyre};
-use tauri::{AppHandle, command};
+use eyre::{eyre, Context};
+use tauri::{command, AppHandle};
 
-use super::{AnyFileKind, frontend};
+use super::{frontend, AnyFileKind};
 use crate::{state::ManagerExt, util::cmd::Result};
 
 #[command]

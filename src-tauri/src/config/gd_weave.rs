@@ -1,6 +1,6 @@
 use std::io::{BufRead, Write};
 
-use eyre::{OptionExt, Result, bail, eyre};
+use eyre::{bail, eyre, OptionExt, Result};
 use indexmap::IndexMap;
 use serde_json::{Number, Value};
 

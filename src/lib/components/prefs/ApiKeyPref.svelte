@@ -9,10 +9,11 @@
 	import type { Backend } from '$lib/types';
 
 	type Props = {
+		field?: Snippet;
 		backend: Backend;
 	};
 
-	let { backend }: Props = $props();
+	let { field, backend }: Props = $props();
 
 	let hasToken = $state(false);
 
@@ -53,5 +54,7 @@
 		<div class="text-primary-300 group-hover:text-primary-200 truncate">
 			{m[`apiKeyPref_hasToken_${hasToken ? 'has' : 'no'}`]()}
 		</div>
+
+		{@render field?.()}
 	</button>
 </div>

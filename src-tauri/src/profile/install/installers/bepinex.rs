@@ -8,8 +8,8 @@ use eyre::Result;
 
 use super::{FileInstallMethod, PackageInstaller, PackageZip};
 use crate::profile::{
-    Profile, ProfileMod,
     install::{self, fs::ConflictResolution},
+    Profile, ProfileMod,
 };
 
 pub struct BepinexInstaller;

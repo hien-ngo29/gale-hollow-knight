@@ -49,7 +49,6 @@ pub struct ModManager {
     /// which the user has selected at least once.
     pub games: HashMap<Game, ManagedGame>,
     pub active_game: Game,
-    pub hidden_mods: HashSet<Uuid>,
 }
 
 /// Stores profiles and other state for one game.
@@ -565,9 +564,8 @@ impl ModManager {
             .unwrap_or_else(|| game::from_slug(DEFAULT_GAME_SLUG).unwrap());
 
         let mut manager = Self {
-            active_game,
-            hidden_mods: manager.hidden_mods,
             games: HashMap::new(),
+            active_game,
         };
 
         let path = prefs.data_dir.to_path_buf();

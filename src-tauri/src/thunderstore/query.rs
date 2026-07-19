@@ -12,7 +12,7 @@ use super::{
     models::{FrontendMod, FrontendModKind, FrontendVersion, IntoFrontendMod},
 };
 use crate::{
-    profile::{LocalMod, ModManager, Profile},
+    profile::{LocalMod, Profile},
     state::ManagerExt,
     util,
 };
@@ -67,7 +67,8 @@ pub async fn query_loop(app: AppHandle) -> Result<()> {
             if let Some(args) = &thunderstore.current_query {
                 let manager = app.lock_manager();
 
-                let mods = thunderstore.query_mods(args, &manager);
+                let mods =
+                    query_frontend_mods(args, thunderstore.latest(), manager.active_profile());
                 app.emit("mod_query_result", &mods)?;
 
                 if thunderstore.packages_fetched(&app, manager.active_game) {
@@ -238,24 +239,20 @@ impl IntoFrontendMod for LocalMod {
     }
 }
 
-impl Thunderstore {
-    /// Sorts and filters `mods` according to `args` and converts the
-    /// results to [`FrontendMod`].
-    pub(super) fn query_mods(
-        &self,
-        args: &QueryModsArgs,
-        manager: &ModManager,
-    ) -> Vec<FrontendMod> {
-        let profile = manager.active_profile();
-
-        query_mods(
-            args,
-            self.latest()
-                .filter(|borrowed| !manager.hidden_mods.contains(&borrowed.package.uuid)),
-        )
+/// Sorts and filters `mods` according to `args` and converts the
+/// results to [`FrontendMod`].
+pub fn query_frontend_mods<T, I>(
+    args: &QueryModsArgs,
+    mods: I,
+    profile: &Profile,
+) -> Vec<FrontendMod>
+where
+    T: Queryable + IntoFrontendMod,
+    I: Iterator<Item = T>,
+{
+    query_mods(args, mods)
         .map(|m| m.into_frontend(Some(profile)))
         .collect()
-    }
 }
 
 /// Sorts and filters `mods` according to `args`.

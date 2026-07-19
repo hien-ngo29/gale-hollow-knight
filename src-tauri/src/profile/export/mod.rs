@@ -7,9 +7,8 @@ use std::{
 };
 
 use base64::{Engine, prelude::BASE64_STANDARD};
-use eyre::{Context, bail};
+use eyre::Context;
 use globset::{Glob, GlobBuilder, GlobSet, GlobSetBuilder};
-use reqwest::StatusCode;
 use serde::{Deserialize, Serialize};
 use tauri::AppHandle;
 use tracing::info;
@@ -166,9 +165,7 @@ async fn export_code(app: &AppHandle) -> Result<ExportCode> {
         (backend, base64)
     };
 
-    let len = base64.len();
-
-    info!(len, "exporting profile code");
+    info!(len = base64.len(), "exporting profile code");
 
     let response = app
         .http()
@@ -176,18 +173,10 @@ async fn export_code(app: &AppHandle) -> Result<ExportCode> {
         .header("Content-Type", "application/octet-stream")
         .body(base64)
         .send()
+        .await?
+        .error_for_status()?
+        .json::<LegacyProfileCreateResponse>()
         .await?;
-
-    let response = match response.status() {
-        status if status.is_success() => response.json::<LegacyProfileCreateResponse>().await?,
-        StatusCode::PAYLOAD_TOO_LARGE => {
-            bail!(
-                "profile config is too large to export: {}, please reduce the size by removing heavy and/or unneeded config files",
-                humansize::format_size(len, humansize::BINARY)
-            );
-        }
-        _ => bail!("upload failed with status: {}", response.status()),
-    };
 
     Ok(ExportCode {
         code: response.key,
@@ -213,7 +202,10 @@ where
     Ok(())
 }
 
-fn find_config<'a>(root: &'a Path, config_dirs: &'a [&str]) -> impl Iterator<Item = PathBuf> + 'a {
+pub fn find_config<'a>(
+    root: &'a Path,
+    config_dirs: &'a [&str],
+) -> impl Iterator<Item = PathBuf> + 'a {
     static INCLUDE_SET: LazyLock<GlobSet> = LazyLock::new(|| {
         GlobSetBuilder::new()
             .add(Glob::new("*.{cfg,txt,json,yml,yaml,ini}").unwrap())
@@ -223,7 +215,8 @@ fn find_config<'a>(root: &'a Path, config_dirs: &'a [&str]) -> impl Iterator<Ite
 
     static EXCLUDE_SET: LazyLock<GlobSet> = LazyLock::new(|| {
         GlobSetBuilder::new()
-            .add(Glob::new("{dotnet,_state,snapshots,MelonLoader}/*").unwrap())
+            .add(Glob::new("{dotnet,_state,MelonLoader}/*").unwrap())
+            .add(Glob::new("dotnet/*").unwrap())
             .add(Glob::new("GDWeave/{GDWeave.log,core/*,mods/*}").unwrap())
             .add(Glob::new("mods.yml").unwrap())
             .add(

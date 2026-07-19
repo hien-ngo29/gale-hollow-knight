@@ -70,11 +70,7 @@ impl<'a> InstallPackage<'a> {
         let mut split = string.split('/');
         let (owner, name, version) = (split.next()?, split.next()?, split.next()?);
 
-        Some(Self {
-            owner,
-            name,
-            version,
-        })
+        Some(Self { owner, name, version })
     }
 }
 
